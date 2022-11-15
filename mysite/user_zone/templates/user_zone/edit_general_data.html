@@ -1,0 +1,15 @@
+<!-- Page editing general data of users -->
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h5 class="h5">Editace osobních údajů</h5>
+<hr>
+<div class="main_content">
+    <p>Nový uživatel se vytvoří jeho zaregistrováním. Pro vyplnění osobních údajů uživatele jej vyberte v poli Email.</p>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit">
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+<!-- User form for registration and login -->
+{% extends "base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+<h5 class="h5">Uživatel</h5>
+<hr>
+<div>
+    <section class="user_form">
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="container-fluid">
+                {{form|crispy}}
+
+                <p></p>
+                <button type="submit" class="btn btn-primary btn-block" value="Login">Odeslat</button>
+            </div>
+        </form>
+    </section>
+</div>
+
+<div class="col-md-4"></div>
+{% endblock %}
