@@ -1,0 +1,49 @@
+<!-- Base template shown on all pages -->
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" type = "text/css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>DCBA</title>
+    </head>
+    <body id="base_body">
+        <nav>
+            <div class="flex_box">
+                <div class="nav_item"><a href={% url "index" %}>Hlavní strana</a></div>
+                {% if not user.is_authenticated %}<div class="nav_item"><a href={% url "register" %}>Registrace</a></div>{% endif %}
+                {% if not user.is_authenticated %}<div class="nav_item"><a href={% url "login" %}>Přihlášení</a></div>{% endif %}
+                {% if user.is_admin %}<div class="nav_item"><a href={% url "general_data_list" %}>Administrace</a></div>{% endif %}
+                {% if user.is_admin %}<div class="nav_item"><a href={% url "edit_general_data" %}>Editace</a></div>{% endif %}
+                {% if user.is_authenticated %}<div class="nav_item"><a href={% url "logout" %}>Odhlášení</a></div>{% endif %}
+                <div class="info_pane">
+                <!-- Logged user info -->
+                {% if request.user.is_authenticated %}
+                    Přihlášen: {{request.user.email}}
+                {% else %}
+                    Přihlášen:
+                {% endif %}
+                <!-- Checking message type and rendering it -->
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == "error" %}
+                            --- Error: {{message}}
+                        {% else %}
+                            --- Info: {{message}}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                </div>
+            </div>
+        </nav>
+        <div class="block_content">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+      <footer>Ondřej Smutný, 2022</footer>
+    </body>
+</html>
